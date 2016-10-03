@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :corrections
+  resources :answers
+  resources :questions
 	resources :sessions, only: [:new, :create, :destroy]
 	get '/log_in', to: 'sessions#new', as: :log_in
 	delete '/log_out', to: 'sessions#destroy', as: :log_out

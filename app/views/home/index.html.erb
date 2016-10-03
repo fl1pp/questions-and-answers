@@ -1,1 +1,14 @@
 <h1>Главная</h1>
+<%= link_to 'Задать вопрос', new_question_path %>
+<div>
+	<% @questions.each do |question| %>
+		<div><%= "Вопрос задал пользователь #{question.user.name}" %></div>
+		<div><%= question.title %></div>
+		<%== question.content %>
+		<% question.answers.each do |answer| %>
+			<%= "Ответ пользователя #{answer.user.name}" %>
+			<%== answer.content %>
+		<% end %>
+		<%= link_to 'Ответить', new_answer_path %>
+	<% end %>
+</div>
