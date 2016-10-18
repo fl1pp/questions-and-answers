@@ -1,4 +1,6 @@
 class CorrectionsController < ApplicationController
+  before_action :set_question
+  before_action :set_answer
   before_action :set_correction, only: [:show, :edit, :update, :destroy]
 
   # GET /corrections
@@ -14,7 +16,7 @@ class CorrectionsController < ApplicationController
 
   # GET /corrections/new
   def new
-    @correction = Correction.new(answer_id: answer.id, user_id: current_user.id)
+    @correction = Correction.new
   end
 
   # GET /corrections/1/edit
@@ -24,11 +26,12 @@ class CorrectionsController < ApplicationController
   # POST /corrections
   # POST /corrections.json
   def create
-    @correction = Correction.new(correction_params)
-
+    @correction = current_user.corrections.new(correction_params)
+    @correction.answer = @answer
+    @correction.answer.question = @question
     respond_to do |format|
       if @correction.save
-        format.html { redirect_to @correction }
+        format.html { redirect_to root_path }
         format.json { render :show, status: :created, location: @correction }
       else
         format.html { render :new }
@@ -62,6 +65,13 @@ class CorrectionsController < ApplicationController
   end
 
   private
+    def set_question
+      @question = Question.find(params[:question_id])
+    end
+
+    def set_answer
+      @answer = Answer.find(params[:answer_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_correction
       @correction = Correction.find(params[:id])

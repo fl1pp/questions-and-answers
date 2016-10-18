@@ -1,4 +1,4 @@
-<%= form_for(correction) do |f| %>
+<%= form_for [@question, @answer, correction] do |f| %>
   <% if correction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(correction.errors.count, "error") %> prohibited this correction from being saved:</h2>

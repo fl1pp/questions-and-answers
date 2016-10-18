@@ -21,9 +21,10 @@ ActiveRecord::Schema.define(version: 20160930121429) do
   end
 
   create_table "corrections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "content",     limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "question_id"
     t.integer  "answer_id"
     t.integer  "user_id"
   end

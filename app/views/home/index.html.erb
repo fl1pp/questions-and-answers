@@ -1,14 +1,21 @@
 <h1>Главная</h1>
 <%= link_to 'Задать вопрос', new_question_path %>
-<div>
+
+
 	<% @questions.each do |question| %>
-		<div><%= "Вопрос задал пользователь #{question.user.name}" %></div>
+		<div><%= "Вопрос задал #{question.user.name}:" %></div>
 		<div><%= question.title %></div>
 		<%== question.content %>
+		<%= link_to '>>>Ответить', new_question_answer_path(question) %>
+		
 		<% question.answers.each do |answer| %>
-			<%= "Ответ пользователя #{answer.user.name}" %>
-			<%== answer.content %>
+			<div><%= "Ответ от #{answer.user.name}:" %></div>
+			<div><%== answer.content %></div>
+		<%= link_to 'Добавить правку', new_question_answer_correction_path(question, answer) %>
+					
+		<% answer.corrections.each do |correction| %>
+			<div><%= "Правка от #{correction.user.name}:" %></div>
+			<div><%== correction.content %></div>
 		<% end %>
-		<%= link_to 'Ответить', new_answer_path %>
+		<% end %>
 	<% end %>
-</div>
